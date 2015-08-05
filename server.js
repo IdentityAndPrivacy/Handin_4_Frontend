@@ -235,9 +235,9 @@ router.get('/start_authentication', function(req, res) {
 	
 	var keyHandle;
 	var query = PUser.findOne({'username': 'nikolas'});
-  	query.exec(function(err, user) {
+  	query.exec(function(err, user){
 	    if (!err) {
-			console.log(user);
+			console.log("User: "+user+" |END");
 			if(user !== null)
 			{
 				keyHandle = user.keyHandle;
@@ -248,7 +248,7 @@ router.get('/start_authentication', function(req, res) {
 	var req = u2f.request(appId, keyHandle);
 	session.authRequest = req;
 
-	console.log(session.authRequest);
+	console.log("Session: "+session.authRequest);
 
 	res.render('start_authentication', {data: JSON.stringify(req)});
 });
