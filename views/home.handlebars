@@ -62,7 +62,7 @@
 	  		localStorage.setItem('username', $('#username').val());
 			var name = data.user.firstname + ' ' + data.user.lastname;
 	  		console.log(name);
-	  		$('#name').text = name;
+	  		$('#name').html(name);
 	  	}
 	  	else {
 	  		alert('Error, try again.');	  		
