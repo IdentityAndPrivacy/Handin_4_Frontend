@@ -39,52 +39,53 @@ var userSchema = new mongoose.Schema({
 
 var PUser = mongoose.model('Users', userSchema);
 
-PUser.remove({}, function(err) {
-  if (err) {
-    console.log ('error deleting old data.');
-  }
-});
+// OUTCOMMEND TO PREVENT WIRED DELETION ERROR AT HEROKU!
+// PUser.remove({}, function(err) {
+//   if (err) {
+//     console.log ('error deleting old data.');
+//   }
+// });
 
-var martin = new PUser ({
-  username: 'martin',
-  password: passwordHash.generate('123'),
-  name:{
-  	firstname: 'Martin',
-  	lastname: 'Jensen'
-  }
-});
-martin.save(function (err) {if (err) console.log ('Error on save!')});
+// var martin = new PUser ({
+//   username: 'martin',
+//   password: passwordHash.generate('123'),
+//   name:{
+//   	firstname: 'Martin',
+//   	lastname: 'Jensen'
+//   }
+// });
+// martin.save(function (err) {if (err) console.log ('Error on save!')});
 
 
-var nikolas = new PUser ({
-  username: 'nikolas',
-  password: passwordHash.generate('111'),
-  name:{
-  	firstname: 'Nikolas',
-  	lastname: 'Bram'
-  }
-});
-nikolas.save(function (err) {if (err) console.log ('Error on save!')});
+// var nikolas = new PUser ({
+//   username: 'nikolas',
+//   password: passwordHash.generate('111'),
+//   name:{
+//   	firstname: 'Nikolas',
+//   	lastname: 'Bram'
+//   }
+// });
+// nikolas.save(function (err) {if (err) console.log ('Error on save!')});
 
-var gert = new PUser ({
-  username: 'gert',
-  password: passwordHash.generate('password'),
-  name:{
-  	firstname: 'Gert',
-  	lastname: 'Mikkelsen'
-  }
-});
-gert.save(function (err) {if (err) console.log ('Error on save!')});
+// var gert = new PUser ({
+//   username: 'gert',
+//   password: passwordHash.generate('password'),
+//   name:{
+//   	firstname: 'Gert',
+//   	lastname: 'Mikkelsen'
+//   }
+// });
+// gert.save(function (err) {if (err) console.log ('Error on save!')});
 
-var kasper = new PUser ({
-  username: 'kasper',
-  password: passwordHash.generate('112'),
-  name:{
-  	firstname: 'Kasper',
-  	lastname: 'Nissen'
-  }
-});
-kasper.save(function (err) {if (err) console.log ('Error on save!')});
+// var kasper = new PUser ({
+//   username: 'kasper',
+//   password: passwordHash.generate('112'),
+//   name:{
+//   	firstname: 'Kasper',
+//   	lastname: 'Nissen'
+//   }
+// });
+// kasper.save(function (err) {if (err) console.log ('Error on save!')});
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
