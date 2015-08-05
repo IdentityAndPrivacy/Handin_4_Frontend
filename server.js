@@ -124,17 +124,6 @@ router.get('/', function(req, res) {
 	res.render('home');
 });
 
-
-// 2. (On server) generate user registration request and save it in session:
-router.get('/start_registration', function(req, res) {
-  var fUsername = url.parse(req.url,true).query.username;
-
-  var req = u2f.request(appId);
-  session.authRequest = req;
-
-	res.render('start_registration');
-});
-
 router.post('/login', function(req,res){
   var fUsername = req.body.username;
   var fPassword = req.body.password;
@@ -174,6 +163,19 @@ router.post('/login', function(req,res){
         _res.end();
     }
   });
+});
+
+
+// 2. (On server) generate user registration request and save it in session:
+router.get('/start_registration', function(req, res) {
+  var fUsername = url.parse(req.url,true).query.username;
+
+  var req = u2f.request(appId);
+  session.authRequest = req;
+
+  console.log(session.authRequest);
+
+  res.render('start_registration');
 });
 
 
