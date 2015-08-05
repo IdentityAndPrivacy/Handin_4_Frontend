@@ -241,14 +241,17 @@ router.get('/start_authentication', function(req, res) {
 			if(user !== null)
 			{
 				keyHandle = user.keyHandle;
+				console.log("keyHandle1:"+user.keyHandle)
 			}
 		}
 	});
+	console.log("keyHandle2:"+keyHandle)
 
 	var req = u2f.request(appId, keyHandle);
 	session.authRequest = req;
 
 	console.log("Session: "+session.authRequest);
+	console.log("JSON:"+JSON.stringify(req));
 
 	res.render('start_authentication', {data: JSON.stringify(req)});
 });
