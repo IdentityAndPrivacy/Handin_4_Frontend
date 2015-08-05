@@ -32,7 +32,7 @@
 	$( document ).ready(function() {
 	    $('#login-btn').click(login);
 	    $('#logout-btn').click(logout);
-	    $('#authenticate-btn').attr('onClick','location.href="/start_authentication?username='+localStorage.getItem('username') );
+	    $('#authenticate-btn').attr('onClick','location.href="/start_authentication?username='+localStorage.getItem('username')+'"' );
 	    if(localStorage.getItem('username') !== null) {
 	    	// Logged in
 	    	console.log('Logged in!');
