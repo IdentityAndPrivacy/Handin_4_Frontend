@@ -14,6 +14,8 @@ var mongoose    = require('mongoose');
 var passwordHash = require('password-hash');
 var session = require('express-session');
 
+app.use('/images', express.static(__dirname + "/images"));
+
 // MONGO DB Setup and Seeddata
 // MongoDB
 var uristring =
@@ -234,10 +236,10 @@ router.post('/finish_registration', function(req, res) {
 router.get('/start_authentication', function(req, res) {
 	
 	var keyHandle;
-	var query = PUser.findOne({'username': fUsername});
-  	query.exec(function(err, user) {
+	var query = PUser.findOne({'username': 'nikolas'});
+  	query.exec(function(err, user){
 	    if (!err) {
-			console.log(user);
+			console.log("User: "+user+" |END");
 			if(user !== null)
 			{
 				keyHandle = user.keyHandle;
@@ -248,6 +250,8 @@ router.get('/start_authentication', function(req, res) {
 	var req = u2f.request(appId, keyHandle);
 	session.authRequest = req;
 
+	console.log("Session: "+session.authRequest);
+
 	res.render('start_authentication', {data: JSON.stringify(req)});
 });
 
@@ -255,7 +259,7 @@ router.get('/start_authentication', function(req, res) {
 router.post('/finish_authentication', function(req, res) {
 	
 	var publicKey;
-	var query = PUser.findOne({'username': fUsername});
+	var query = PUser.findOne({'username': 'nikolas'});
   	query.exec(function(err, user) {
 	    if (!err) {
 			console.log(user);
