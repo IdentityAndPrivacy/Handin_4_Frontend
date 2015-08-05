@@ -4,7 +4,8 @@
 // =============================================================================
 
 	// Setup the packages that we need
-var express    	= require('express');       // call express
+var express    	= require('express');
+var exphbs 		= require('express-handlebars'); ;       // call express
 var app        	= express();                 // define our app using express
 var bodyParser 	= require('body-parser');
 var url 	   	= require('url');
@@ -12,6 +13,10 @@ var u2f			= require('u2f');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Setup view engine
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 
 var port = process.env.PORT || 8080;        // set our port
@@ -21,7 +26,7 @@ var port = process.env.PORT || 8080;        // set our port
 var router = express.Router();              // get an instance of the express Router
 
 router.get('/', function(req, res) {
-	res.send('Hello from server');
+	res.render('home');
 });
 
 app.use('', router);

@@ -3,6 +3,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "~4.0.0",
+    "express-handlebars": "2.0.1",
     "body-parser": "~1.0.1",
     "u2f": "^0.1.1"
   }
