@@ -175,7 +175,7 @@ router.get('/start_registration', function(req, res) {
 
   console.log(session.authRequest);
 
-  res.render('start_registration');
+  res.render('start_registration', {data: req});
 });
 
 
