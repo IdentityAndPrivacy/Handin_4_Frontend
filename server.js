@@ -127,6 +127,11 @@ router.get('/', function(req, res) {
 
 // 2. (On server) generate user registration request and save it in session:
 router.get('/start_registration', function(req, res) {
+  var fUsername = url.parse(req.url,true).query.username;
+
+  var req = u2f.request(appId);
+  session.authRequest = req;
+
 	res.render('start_registration');
 });
 
@@ -174,7 +179,15 @@ router.post('/login', function(req,res){
 
 router.post('/finish_registration', function(req, res) {
 
-  var fUsername = req.body.username;
+  // 4. (Server) Check registration result.
+  var checkres = u2f.checkRegistration(session.authRequest, res);
+
+  if (checkres.successful) {
+    // Registration successful, save 
+    // checkres.keyHandle and checkres.publicKey to user's account in your db.
+  } else {
+    // checkres.errorMessage will contain error text.
+  }
   
 });
 
