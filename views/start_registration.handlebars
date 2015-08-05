@@ -14,7 +14,8 @@
 					type: "POST",
 					url: '/finish_registration',
 					data: {
-						data: res
+						data: res,
+						username: localStorage.getItem('username')
 					}
 					}).done(function(response) {
 						if(response){
