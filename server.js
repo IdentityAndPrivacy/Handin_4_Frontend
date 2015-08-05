@@ -271,14 +271,14 @@ router.post('/finish_authentication', function(req, res) {
 				if (checkres.successful) {
 					// User is authenticated.
 					console.log("User authenticated")
-					_res.status(200);
-					_res.json({message: 'User authenticated'});
-					_res.end();
+					res.status(200);
+					res.json({message: 'User authenticated'});
+					res.end();
 
 				} else {
 					// checkres.errorMessage will contain error text.
-					_res.json( {message: checkres.errorMessage} );
-					_res.end();
+					res.json( {message: checkres.errorMessage} );
+					res.end();
 				}
 			}
 		}
