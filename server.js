@@ -181,6 +181,8 @@ router.get('/start_registration', function(req, res) {
 
 router.post('/finish_registration', function(req, res) {
 
+  var fData = req.body.data;
+
   // 4. (Server) Check registration result.
   var checkres = u2f.checkRegistration(session.authRequest, res);
 
