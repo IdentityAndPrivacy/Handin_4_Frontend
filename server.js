@@ -256,13 +256,17 @@ router.get('/start_authentication', function(req, res) {
 
 
 router.post('/finish_authentication', function(req, res) {
-	
+	var fData = req.body.data;
+  	var username = req.body.username;
+  	console.log(fData);
+  	console.log(username);
+
 	var query = PUser.findOne({'username': 'nikolas'});
   	query.exec(function(err, user) {
 	    if (!err) {
 			console.log(user);
 			if(user !== null){
-				var checkres = u2f.checkSignature(session.authRequest, res, user.publicKey);
+				var checkres = u2f.checkSignature(session.authRequest, fData, user.publicKey);
 
 				if (checkres.successful) {
 					// User is authenticated.
