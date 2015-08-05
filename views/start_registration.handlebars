@@ -7,9 +7,23 @@
 <script type="text/javascript">
 	$( document ).ready(function() {
 		var data = JSON.parse($('#data-div').text());
-		setInterval(function() {
+		setTimeout(function() {
 			u2f.register([data], [], function(res) {
-				console.log(res);				
+				console.log(res);
+				$.ajax({
+					type: "POST",
+					url: '/finish_registration',
+					data: {
+						data: res
+					}
+					}).done(function(response) {
+						if(response){
+							// Success
+						}
+						else {
+							// Fail
+						}
+					};);
 			});
 		}, 1000);
 	});
