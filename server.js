@@ -130,19 +130,52 @@ router.get('/start_registration', function(req, res) {
 	res.render('start_registration');
 });
 
+router.post('/login', function(req,res){
+  var fUsername = req.body.username;
+  var fPassword = req.body.password;
+  var _res = res;
+
+  var query = PUser.findOne({'username': fUsername});
+  query.exec(function(err, user) {
+    if (!err) {
+      console.log(user);
+      if(user !== null)
+      {
+        if(passwordHash.verify(fPassword, user.password))
+          {
+              _res.status(200);
+              _res.json(
+                { authenticated: true,
+                  user: {
+                    firstname: user.name.firstname,
+                    lastname: user.name.lastname
+                  }}
+                );
+          }
+          else{
+            _res.status(401);
+            _res.json({ message: 'Wrong password' });
+            _res.end();
+          }
+      }
+      else{
+        _res.status(401);
+            _res.json({message: 'Something went wrong. Buhu!'});
+            _res.end();
+      }
+    } else {
+      _res.status(401);
+        _res.json({message: 'Wrong username'});
+        _res.end();
+    }
+  });
+});
+
 
 router.post('/finish_registration', function(req, res) {
-	var req = u2f.request(appId);
-	session.authRequest = req;
 
-	var checkres = u2f.checkRegistration(session.authRequest, res);
-
-	if (checkres.successful) {
-    	// Registration successful, save 
-    	// checkres.keyHandle and checkres.publicKey to user's account in your db.
-	} else {
-	    // checkres.errorMessage will contain error text.
-	}
+  var fUsername = req.body.username;
+  
 });
 
 
