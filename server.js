@@ -182,7 +182,7 @@ router.get('/start_registration', function(req, res) {
 router.post('/finish_registration', function(req, res) {
 
   var fData = req.body.data;
-  var username = req.body.data;
+  var username = req.body.username;
   console.log(fData);
   console.log(username);
 
