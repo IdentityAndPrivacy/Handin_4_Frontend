@@ -7,10 +7,9 @@
 		$("#auth-fail").hide();
 
 		var request =  JSON.parse($('#data-div').text());
-		
-
 		var signRequest = setInterval(function() {
-		    u2f.sign([request], function(res) {
+			console.log(request);
+		    u2f.sign(request, function(res) {
 		    	console.log(res);
 		        if(res.errorCode) {
 		            console.log("U2F failed with error code: " + res.errorCode);
@@ -20,12 +19,12 @@
 		        clearInterval(signRequest);
 
 		       	$.ajax({
-				type: 'POST',
-				url: '/finish_authentication',
-				data: {
-					data: res,
-					username: localStorage.getItem('username')
-				}
+					type: 'POST',
+					url: '/finish_authentication',
+					data: {
+						data: res,
+						username: localStorage.getItem('username')
+					}
 				}).done(function(response) {
 					if(response){
 						// Success
@@ -44,12 +43,13 @@
 	});
 </script>
 
+<div id="data-div"class="hidden" style="diplay: none;">{{data}}</div>
 
 <div style="text-align: center;">
 	<div id="start-auth" class="container">
 		<h2>Start authentication</h2>
 		<p>Please insert and hold your Yubikeykey for authentication</p>
-		<div id="data-div"class="hidden" style="diplay: none;">{{data}}</div>
+		
 	</div>
 	
 	<div id="finish-auth" class="container">
