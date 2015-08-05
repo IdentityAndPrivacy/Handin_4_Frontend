@@ -23,7 +23,7 @@
 	<div id="u2f-div" class="container">
 		<h5 id="name"></h5>
 		<a href="/start_registration"><button class="btn">Register</button></a>
-		<a href="/start_authentication"><button class="btn">Authenticate</button></a>
+		<button id="authenticate-btn" onClick='location.href="/start_authentication"' class="btn">Authenticate</button>
 		<button id="logout-btn" class="btn">Logout</button>
 	</div>
 </div>
@@ -36,6 +36,13 @@
 	    	// Logged in
 	    	console.log('Logged in!');
 	    	$('#login').hide();
+	    	// Registered or not?
+	    	if(localStorage.getItem('registered') !== null){
+	    		$('#authenticate-btn').attr('disabled','disabled');
+	    	}
+	    	else {
+	    		$('#authenticate-btn').removeAttr('disabled');
+	    	}
 	    }
 	    else {
 	    	console.log('Not logged in');
@@ -65,7 +72,7 @@
 	  		$('#name').html(name);
 	  	}
 	  	else {
-	  		alert('Error, try again.');	  		
+	  		alert('Error, try again.');
 	  	}
 	  });
 	};

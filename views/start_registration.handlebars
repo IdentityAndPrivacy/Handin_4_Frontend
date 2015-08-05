@@ -30,9 +30,10 @@
 							// Success
 							$('#after-div').show();
 							$('#before-div').hide();
+							localStorage.setItem('registered', true);
 						}
 						else {
-							// Fail
+							// Failing is not an option
 						}
 					});
 			});
