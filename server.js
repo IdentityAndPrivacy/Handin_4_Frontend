@@ -234,8 +234,8 @@ router.post('/finish_registration', function(req, res) {
 
 
 router.get('/start_authentication', function(req, res) {
-	
-	var query = PUser.findOne({'username': 'nikolas'});
+	var fUsername = url.parse(req.url,true).query.username;
+	var query = PUser.findOne({'username': fUsername});
   	query.exec(function(err, user){
 	    if (!err) {
 			if(user !== null)
