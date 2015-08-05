@@ -262,7 +262,7 @@ router.post('/finish_authentication', function(req, res) {
 	    if (!err) {
 			console.log(user);
 			if(user !== null){
-				var checkres = u2f.checkSignature(session.authRequest, res, publicKey);
+				var checkres = u2f.checkSignature(session.authRequest, res, user.publicKey);
 
 				if (checkres.successful) {
 					// User is authenticated.
