@@ -10,6 +10,81 @@ var app        	= express();                 // define our app using express
 var bodyParser 	= require('body-parser');
 var url 	   	= require('url');
 var u2f			= require('u2f');
+var mongoose  	= require('mongoose');
+
+// MONGO DB Setup and Seeddata
+// MongoDB
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/HelloMongoose';
+
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+  console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+  console.log ('Succeeded connected to: ' + uristring);
+  }
+});
+
+var userSchema = new mongoose.Schema({
+    username: String,
+    password: String,
+    name:{
+  		firstname: String,
+  		lastname: String
+  }
+});
+
+var PUser = mongoose.model('Users', userSchema);
+
+PUser.remove({}, function(err) {
+  if (err) {
+    console.log ('error deleting old data.');
+  }
+});
+
+var martin = new PUser ({
+  username: 'martin',
+  password: passwordHash.generate('123'),
+  name:{
+  	firstname: 'Martin',
+  	lastname: 'Jensen'
+  }
+});
+martin.save(function (err) {if (err) console.log ('Error on save!')});
+
+
+var nikolas = new PUser ({
+  username: 'nikolas',
+  password: passwordHash.generate('111'),
+  name:{
+  	firstname: 'Nikolas',
+  	lastname: 'Bram'
+  }
+});
+nikolas.save(function (err) {if (err) console.log ('Error on save!')});
+
+var gert = new PUser ({
+  username: 'gert',
+  password: passwordHash.generate('password'),
+  name:{
+  	firstname: 'Gert',
+  	lastname: 'Mikkelsen'
+  }
+});
+gert.save(function (err) {if (err) console.log ('Error on save!')});
+
+var kasper = new PUser ({
+  username: 'kasper',
+  password: passwordHash.generate('112'),
+  name:{
+  	firstname: 'Kasper',
+  	lastname: 'Nissen'
+  }
+});
+kasper.save(function (err) {if (err) console.log ('Error on save!')});
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
