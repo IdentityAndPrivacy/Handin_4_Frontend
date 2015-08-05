@@ -236,13 +236,14 @@ router.get('/start_authentication', function(req, res) {
 	var keyHandle;
 	var query = PUser.findOne({'username': fUsername});
   	query.exec(function(err, user) {
-    if (!err) {
-		console.log(user);
-		if(user !== null)
-		{
-			keyHandle = user.keyHandle;
+	    if (!err) {
+			console.log(user);
+			if(user !== null)
+			{
+				keyHandle = user.keyHandle;
+			}
 		}
-	}
+	});
 
 	var req = u2f.request(appId, keyHandle);
 	session.authRequest = req;
@@ -256,13 +257,13 @@ router.post('/finish_authentication', function(req, res) {
 	var publicKey;
 	var query = PUser.findOne({'username': fUsername});
   	query.exec(function(err, user) {
-    if (!err) {
-		console.log(user);
-		if(user !== null)
-		{
-			publicKey = user.publicKey;
+	    if (!err) {
+			console.log(user);
+			if(user !== null){
+				publicKey = user.publicKey;
+			}
 		}
-	}
+	});
 
 	var checkres = u2f.checkSignature(session.authRequest, res, publicKey);
 
