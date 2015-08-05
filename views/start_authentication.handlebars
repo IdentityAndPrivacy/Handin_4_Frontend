@@ -48,22 +48,62 @@
 
 <div id="data-div"class="hidden" style="display: none;">{{data}}</div>
 
+
+<style>
+.fido{
+	position:relative; 
+	z-index:10;
+}
+
+#finger-img {
+  animation-duration: 3s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  width: 200px;
+  position:relative; 
+	z-index: 100; 
+	top: 25px; 
+	left: -150px;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 10%;
+    
+  }
+
+  to {
+    margin-left: 0%;
+    
+  }
+}
+</style>
+
 <div style="text-align: center;">
 	<div id="start-auth" class="container">
-		<h2>Start authentication</h2>
-		<p>Please insert and hold your Yubikeykey for authentication...</p>
+		<i class="material-icons" style="color: darkgrey; font-size: 40px; margin-bottom: 0px; margin-top:40px;">looks_one</i>
+		<p style="color: darkgrey; font-size: 25px; margin-top:0;">Please insert and hold your Yubico key for authentication...</p>
+		<br/>
+		<img src='/images/fido.png' width=300 class="fido">
+		<img id="finger-img" src='/images/finger.png' class="finger">
 	</div>
+
 
 	<div id="timeout" class="container">
 			<p style="font-style: italic;">Timeout! - Refresh the page to try authorication again</p>
 	</div>
 
 	<div id="finish-auth" class="container">
-		<h2 style="color: green;">User authenticated!</h2>
+		<i class="material-icons" style="color: darkgrey; font-size: 100px; margin-bottom: 0px; margin-top:40px;">check</i>
+		<h4 style="color: green;">User authenticated!</h4>
+		<a href="/" class="btn">Go back</a>
 	</div>
 
 	<div id="auth-fail" class="container">
 		<h2 style="color: red;">Error - Authentication failed!</h2>
 	</div>
+
 </div>
+
 
