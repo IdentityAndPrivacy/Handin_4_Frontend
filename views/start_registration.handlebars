@@ -1,7 +1,25 @@
+<style>
+.finger{
+	position:relative; 
+	z-index: 100; 
+	top: 90px; 
+	left: -220px;
+}
+
+.fido{
+	position:relative; 
+	z-index:10;
+}
+</style>
+
 <div style="text-align: center;">
 	<div id="before-div" class="container">
 		<h2>START REGISTRATION</h2>
 		<p>Touch your key now to register!</p>
+		<br/>
+		<img src='/images/fido.png' class="fido">
+		<img id="finger-img" src='/images/finger.png' class="finger">
+		
 	</div>
 	<div id="after-div" class="container">
 		<p>You have now successfully registered your device!</p>
@@ -11,8 +29,18 @@
 </div>
 
 <script type="text/javascript">
+	moveRight = function() {
+    $('#finger-img').stop(true,true).animate({left: 50}, 1000, moveLeft);
+	};
+
+	moveLeft = function() {
+    	$('#finger-img').stop(true,true).animate({left: 0}, 1000, moveRight);
+	};
+
 	$( document ).ready(function() {
 		$('#after-div').hide();
+
+		moveRight();
 
 		var data = JSON.parse($('#data-div').text());
 		setTimeout(function() {
@@ -38,6 +66,12 @@
 			});
 		}, 1000);
 	});
+
+	
+
+
+
+
 		
 </script>
 
