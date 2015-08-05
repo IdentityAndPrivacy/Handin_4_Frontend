@@ -195,14 +195,39 @@ router.post('/finish_registration', function(req, res) {
 
 
 router.get('/start_authentication', function(req, res) {
-	res.render('start_authentication');
-});
+	
+	var keyHandle;
+	var query = PUser.findOne({'username': fUsername});
+  	query.exec(function(err, user) {
+    if (!err) {
+		console.log(user);
+		if(user !== null)
+		{
+			keyHandle = user.keyHandle;
+		}
+	}
 
-router.post('/finish_authentication', function(req, res) {
-	var req = u2f.request(appId, user.keyHandle);
+	var req = u2f.request(appId, keyHandle);
 	session.authRequest = req;
 
-	var checkres = u2f.checkSignature(session.authRequest, res, user.publicKey);
+	res.render('start_authentication', {data: JSON.stringify(req)});
+});
+
+
+router.post('/finish_authentication', function(req, res) {
+	
+	var publicKey;
+	var query = PUser.findOne({'username': fUsername});
+  	query.exec(function(err, user) {
+    if (!err) {
+		console.log(user);
+		if(user !== null)
+		{
+			publicKey = user.publicKey;
+		}
+	}
+
+	var checkres = u2f.checkSignature(session.authRequest, res, publicKey);
 
 	if (checkres.successful) {
 		// User is authenticated.
