@@ -14,6 +14,8 @@ var mongoose    = require('mongoose');
 var passwordHash = require('password-hash');
 var session = require('express-session');
 
+app.use('/images', express.static(__dirname + "/images"));
+
 // MONGO DB Setup and Seeddata
 // MongoDB
 var uristring =
