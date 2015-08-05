@@ -20,16 +20,18 @@
 	</div>	
 
 	{{!-- U2F --}}
-	<div id="u2f" class="container">
-		<h5>LALALALA</h5>
+	<div id="u2f-div" class="container">
+		<h5 id="name"></h5>
 		<a href="/start_registration"><button class="btn">Register</button></a>
 		<a href="/start_authentication"><button class="btn">Authenticate</button></a>
+		<button id="logout-btn" class="btn">Logout</button>
 	</div>
 </div>
 
 <script type="text/javascript">
 	$( document ).ready(function() {
 	    $('#login-btn').click(login);
+	    $('#logout-btn').click(logout);
 	    if(localStorage.getItem('username') !== null) {
 	    	// Logged in
 	    	console.log('Logged in!');
@@ -37,7 +39,7 @@
 	    }
 	    else {
 	    	console.log('Not logged in');
-	    	$('#u2f').hide();
+	    	$('#u2f-div').hide();
 	    }
 	    
 	});
@@ -56,12 +58,24 @@
 	  	if(data.authenticated === true){
 	  		// Logged in
 	  		$('#login').hide();
-	  		$('#u2f').show();
+	  		$('#u2f-div').show();
+	  		localStorage.setItem('username', $('#username').val());
+			var name = data.user.firstname + ' ' + data.user.lastname;
+	  		console.log(name);
+	  		$('#name').text = name;
 	  	}
 	  	else {
-	  		alert('Error, try again.');
+	  		alert('Error, try again.');	  		
 	  	}
 	  });
+	};
+
+	// Logout
+	function logout() {
+		localStorage.removeItem('username');
+		$('#login').show();
+		$('#u2f-div').hide();
+
 	};
 
 	  // Registering device
