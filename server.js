@@ -181,14 +181,51 @@ router.get('/start_registration', function(req, res) {
 
 router.post('/finish_registration', function(req, res) {
 
+  var fData = req.body.data;
+  var username = req.body.username;
+  console.log(fData);
+  console.log(username);
+
   // 4. (Server) Check registration result.
-  var checkres = u2f.checkRegistration(session.authRequest, res);
+  var checkres = u2f.checkRegistration(session.authRequest, fData);
+  console.log(checkres);
 
   if (checkres.successful) {
     // Registration successful, save 
     // checkres.keyHandle and checkres.publicKey to user's account in your db.
+    var _res = res;
+
+    var query = PUser.findOne({'username': username});
+    query.exec(function(err, user) {
+    if (!err) {
+      console.log(user);
+      if(user !== null)
+      {
+            user.publicKey = checkres.publicKey;
+            user.keyHandle = checkres.keyHandle;
+            user.save(function (err) {if (err) console.log ('Error on save!')});
+
+            _res.status(200);
+            _res.json({message: 'Device registered'});
+            _res.end();
+      }
+      else{
+        _res.status(421);
+            _res.json({message: 'Something went wrong. Buhu!'});
+            _res.end();
+      }
+    } else {
+      _res.status(421);
+        _res.json({message: 'Could not find username: ' + username});
+        _res.end();
+    }
+  });
+
   } else {
     // checkres.errorMessage will contain error text.
+        _res.status(421);
+        _res.json({message: checkres.errorMessage});
+        _res.end();
   }
   
 });
