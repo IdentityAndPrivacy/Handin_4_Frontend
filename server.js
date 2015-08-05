@@ -39,12 +39,14 @@ router.get('/', function(req, res) {
 
 // 2. (On server) generate user registration request and save it in session:
 router.get('/start_registration', function(req, res) {
-	var req = u2f.request(appId);
-	session.authRequest = req;
+	res.render('start_registration');
 });
 
 
 router.post('/finish_registration', function(req, res) {
+	var req = u2f.request(appId);
+	session.authRequest = req;
+
 	var checkres = u2f.checkRegistration(session.authRequest, res);
 
 	if (checkres.successful) {
@@ -57,11 +59,13 @@ router.post('/finish_registration', function(req, res) {
 
 
 router.get('/start_authentication', function(req, res) {
-	var req = u2f.request(appId, user.keyHandle);
-	session.authRequest = req;
+	res.render('start_authentication');
 });
 
 router.post('/finish_authentication', function(req, res) {
+	var req = u2f.request(appId, user.keyHandle);
+	session.authRequest = req;
+
 	var checkres = u2f.checkSignature(session.authRequest, res, user.publicKey);
 
 	if (checkres.successful) {
