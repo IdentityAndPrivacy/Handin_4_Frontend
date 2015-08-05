@@ -234,7 +234,7 @@ router.post('/finish_registration', function(req, res) {
 router.get('/start_authentication', function(req, res) {
 	
 	var keyHandle;
-	var query = PUser.findOne({'username': fUsername});
+	var query = PUser.findOne({'username': 'nikolas'});
   	query.exec(function(err, user) {
 	    if (!err) {
 			console.log(user);
@@ -255,7 +255,7 @@ router.get('/start_authentication', function(req, res) {
 router.post('/finish_authentication', function(req, res) {
 	
 	var publicKey;
-	var query = PUser.findOne({'username': fUsername});
+	var query = PUser.findOne({'username': 'nikolas'});
   	query.exec(function(err, user) {
 	    if (!err) {
 			console.log(user);
