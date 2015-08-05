@@ -235,57 +235,50 @@ router.post('/finish_registration', function(req, res) {
 
 router.get('/start_authentication', function(req, res) {
 	
-	var keyHandle;
 	var query = PUser.findOne({'username': 'nikolas'});
   	query.exec(function(err, user){
 	    if (!err) {
-			console.log("User: "+user+" |END");
 			if(user !== null)
 			{
-				keyHandle = user.keyHandle;
-				console.log("keyHandle1:"+user.keyHandle)
+				var req = u2f.request(appId, user.keyHandle);
+				session.authRequest = req;
+
+				console.log("Session: "+session.authRequest);
+				console.log("JSON:"+JSON.stringify(req));
+
+				res.render('start_authentication', {data: JSON.stringify(req)});
+
 			}
 		}
 	});
-	console.log("keyHandle2:"+keyHandle)
-
-	var req = u2f.request(appId, keyHandle);
-	session.authRequest = req;
-
-	console.log("Session: "+session.authRequest);
-	console.log("JSON:"+JSON.stringify(req));
-
-	res.render('start_authentication', {data: JSON.stringify(req)});
+	
 });
 
 
 router.post('/finish_authentication', function(req, res) {
 	
-	var publicKey;
 	var query = PUser.findOne({'username': 'nikolas'});
   	query.exec(function(err, user) {
 	    if (!err) {
 			console.log(user);
 			if(user !== null){
-				publicKey = user.publicKey;
+				var checkres = u2f.checkSignature(session.authRequest, res, publicKey);
+
+				if (checkres.successful) {
+					// User is authenticated.
+					console.log("User authenticated")
+					_res.status(200);
+					_res.json({message: 'User authenticated'});
+					_res.end();
+
+				} else {
+					// checkres.errorMessage will contain error text.
+					_res.json( {message: checkres.errorMessage} );
+					_res.end();
+				}
 			}
 		}
-	});
-
-	var checkres = u2f.checkSignature(session.authRequest, res, publicKey);
-
-	if (checkres.successful) {
-		// User is authenticated.
-		console.log("User authenticated")
-		_res.status(200);
-		_res.json({message: 'User authenticated'});
-		_res.end();
-
-	} else {
-		// checkres.errorMessage will contain error text.
-		_res.json( {message: checkres.errorMessage} );
-		_res.end();
-	}
+	});	
 });
 
 
