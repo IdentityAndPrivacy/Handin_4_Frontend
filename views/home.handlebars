@@ -37,7 +37,7 @@
 	    	console.log('Logged in!');
 	    	$('#login').hide();
 	    	// Registered or not?
-	    	if(localStorage.getItem('registered') !== null){
+	    	if(localStorage.getItem('registered') === null){
 	    		$('#authenticate-btn').attr('disabled','disabled');
 	    	}
 	    	else {
@@ -70,6 +70,12 @@
 			var name = data.user.firstname + ' ' + data.user.lastname;
 	  		console.log(name);
 	  		$('#name').html(name);
+	  		if(localStorage.getItem('registered') === null){
+	    		$('#authenticate-btn').attr('disabled','disabled');
+	    	}
+	    	else {
+	    		$('#authenticate-btn').removeAttr('disabled');
+	    	}
 	  	}
 	  	else {
 	  		alert('Error, try again.');
