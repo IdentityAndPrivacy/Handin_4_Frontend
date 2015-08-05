@@ -5,6 +5,7 @@
 		$("#start-auth").show();
 		$("#finish-auth").hide();
 		$("#auth-fail").hide();
+		$("#timeout").hide();
 
 		var request =  JSON.parse($('#data-div').text());
 		var signRequest = setInterval(function() {
@@ -12,6 +13,9 @@
 		    u2f.sign([request], function(res) {
 		    	console.log(res);
 		        if(res.errorCode) {
+		        	if(res.errorCode === 5){
+		        		$("#timeout").show();
+		        	}
 		            console.log("U2F failed with error code: " + res.errorCode);
 		            return;
 		        }
@@ -48,9 +52,12 @@
 	<div id="start-auth" class="container">
 		<h2>Start authentication</h2>
 		<p>Please insert and hold your Yubikeykey for authentication</p>
-		
 	</div>
-	
+
+	<div id="timeout" class="container">
+			<p>Timeout! - Refresh the page to try authorication again</p>
+	</div>
+
 	<div id="finish-auth" class="container">
 		<h2>User authenticated!</h2>
 	</div>
