@@ -12,6 +12,7 @@ var url 	   	= require('url');
 var u2f			= require('u2f');
 var mongoose    = require('mongoose');
 var passwordHash = require('password-hash');
+var session = require('express-session');
 
 // MONGO DB Setup and Seeddata
 // MongoDB
@@ -41,7 +42,7 @@ var userSchema = new mongoose.Schema({
 
 var PUser = mongoose.model('Users', userSchema);
 
-OUTCOMMEND TO PREVENT WIRED DELETION ERROR AT HEROKU!
+//OUTCOMMEND TO PREVENT WIRED DELETION ERROR AT HEROKU!
 PUser.remove({}, function(err) {
   if (err) {
     console.log ('error deleting old data.');
