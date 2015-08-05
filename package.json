@@ -2,11 +2,12 @@
   "name": "auth",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "~1.0.1",
     "express": "~4.0.0",
     "express-handlebars": "2.0.1",
-    "body-parser": "~1.0.1",
-    "u2f": "^0.1.1",
+    "express-session": "^1.11.3",
+    "mongoose": "~3.6.13",
     "password-hash": "^1.2.2",
-    "mongoose": "~3.6.13"
+    "u2f": "^0.1.1"
   }
 }

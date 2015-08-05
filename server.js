@@ -12,6 +12,7 @@ var url 	   	= require('url');
 var u2f			= require('u2f');
 var mongoose    = require('mongoose');
 var passwordHash = require('password-hash');
+var session = require('express-session');
 
 // MONGO DB Setup and Seeddata
 // MongoDB
@@ -31,6 +32,8 @@ mongoose.connect(uristring, function (err, res) {
 var userSchema = new mongoose.Schema({
     username: String,
     password: String,
+    keyHandle: String,
+    publicKey: String,
     name:{
   		firstname: String,
   		lastname: String
@@ -39,7 +42,7 @@ var userSchema = new mongoose.Schema({
 
 var PUser = mongoose.model('Users', userSchema);
 
-// OUTCOMMEND TO PREVENT WIRED DELETION ERROR AT HEROKU!
+//OUTCOMMEND TO PREVENT WIRED DELETION ERROR AT HEROKU!
 // PUser.remove({}, function(err) {
 //   if (err) {
 //     console.log ('error deleting old data.');
@@ -49,6 +52,8 @@ var PUser = mongoose.model('Users', userSchema);
 // var martin = new PUser ({
 //   username: 'martin',
 //   password: passwordHash.generate('123'),
+//     keyHandle: '',
+//   publicKey: '',
 //   name:{
 //   	firstname: 'Martin',
 //   	lastname: 'Jensen'
@@ -60,6 +65,8 @@ var PUser = mongoose.model('Users', userSchema);
 // var nikolas = new PUser ({
 //   username: 'nikolas',
 //   password: passwordHash.generate('111'),
+//     keyHandle: '',
+//   publicKey: '',
 //   name:{
 //   	firstname: 'Nikolas',
 //   	lastname: 'Bram'
@@ -70,6 +77,8 @@ var PUser = mongoose.model('Users', userSchema);
 // var gert = new PUser ({
 //   username: 'gert',
 //   password: passwordHash.generate('password'),
+//     keyHandle: '',
+//   publicKey: '',
 //   name:{
 //   	firstname: 'Gert',
 //   	lastname: 'Mikkelsen'
@@ -80,6 +89,8 @@ var PUser = mongoose.model('Users', userSchema);
 // var kasper = new PUser ({
 //   username: 'kasper',
 //   password: passwordHash.generate('112'),
+//   keyHandle: '',
+//   publicKey: '',
 //   name:{
 //   	firstname: 'Kasper',
 //   	lastname: 'Nissen'
@@ -119,19 +130,52 @@ router.get('/start_registration', function(req, res) {
 	res.render('start_registration');
 });
 
+router.post('/login', function(req,res){
+  var fUsername = req.body.username;
+  var fPassword = req.body.password;
+  var _res = res;
+
+  var query = PUser.findOne({'username': fUsername});
+  query.exec(function(err, user) {
+    if (!err) {
+      console.log(user);
+      if(user !== null)
+      {
+        if(passwordHash.verify(fPassword, user.password))
+          {
+              _res.status(200);
+              _res.json(
+                { authenticated: true,
+                  user: {
+                    firstname: user.name.firstname,
+                    lastname: user.name.lastname
+                  }}
+                );
+          }
+          else{
+            _res.status(401);
+            _res.json({ message: 'Wrong password' });
+            _res.end();
+          }
+      }
+      else{
+        _res.status(401);
+            _res.json({message: 'Something went wrong. Buhu!'});
+            _res.end();
+      }
+    } else {
+      _res.status(401);
+        _res.json({message: 'Wrong username'});
+        _res.end();
+    }
+  });
+});
+
 
 router.post('/finish_registration', function(req, res) {
-	var req = u2f.request(appId);
-	session.authRequest = req;
 
-	var checkres = u2f.checkRegistration(session.authRequest, res);
-
-	if (checkres.successful) {
-    	// Registration successful, save 
-    	// checkres.keyHandle and checkres.publicKey to user's account in your db.
-	} else {
-	    // checkres.errorMessage will contain error text.
-	}
+  var fUsername = req.body.username;
+  
 });
 
 
@@ -147,8 +191,15 @@ router.post('/finish_authentication', function(req, res) {
 
 	if (checkres.successful) {
 		// User is authenticated.
+		console.log("User authenticated")
+		_res.status(200);
+		_res.json({message: 'User authenticated'});
+		_res.end();
+
 	} else {
 		// checkres.errorMessage will contain error text.
+		_res.json( {message: checkres.errorMessage} );
+		_res.end();
 	}
 });
 
