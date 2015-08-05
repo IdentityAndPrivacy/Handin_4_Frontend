@@ -184,6 +184,7 @@ router.post('/finish_registration', function(req, res) {
   var fData = req.body.data;
   var username = req.body.data;
   console.log(fData);
+  console.log(username);
 
   // 4. (Server) Check registration result.
   var checkres = u2f.checkRegistration(session.authRequest, fData);
@@ -200,7 +201,6 @@ router.post('/finish_registration', function(req, res) {
       console.log(user);
       if(user !== null)
       {
-            console.log('Verified');
             user.publicKey = checkres.publicKey;
             user.keyHandle = checkres.keyHandle;
             user.save(function (err) {if (err) console.log ('Error on save!')});
