@@ -15,6 +15,7 @@
 		            console.log("U2F failed with error code: " + res.errorCode);
 		            return;
 		        }
+		        clearInterval(signRequest);
 
 		       	$.ajax({
 					type: 'POST',

@@ -261,7 +261,7 @@ router.post('/finish_authentication', function(req, res) {
   	console.log(fData);
   	console.log(username);
 
-	var query = PUser.findOne({'username': 'nikolas'});
+	var query = PUser.findOne({'username': username});
   	query.exec(function(err, user) {
 	    if (!err) {
 			console.log(user);
@@ -271,7 +271,6 @@ router.post('/finish_authentication', function(req, res) {
 				if (checkres.successful) {
 					// User is authenticated.
 					console.log("User authenticated")
-					res.status(200);
 					res.json({message: 'User authenticated'});
 					res.end();
 
