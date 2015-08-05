@@ -1,5 +1,4 @@
 {{!-- Authentication --}}
-<script type="text/javascript" src="https://demo.yubico.com/js/u2f-api.js"></script>
 <script type="text/javascript">
 	$( document ).ready(function() {
 
@@ -8,36 +7,36 @@
 		$("#auth-fail").hide();
 
 		var request =  JSON.parse($('#data-div').text());
+		console.log(request);
 		var signRequest = setInterval(function() {
-		    u2f.sign([request],
-			    function(res) {
-			        if(res.errorCode) {
-			            console.log("U2F failed with error code: " + res.errorCode);
-			            return;
-			        }
+		    u2f.sign([request], function(res) {
+		        if(res.errorCode) {
+		            console.log("U2F failed with error code: " + res.errorCode);
+		            return;
+		        }
 
-			        clearInterval(signRequest);
+		        clearInterval(signRequest);
 
-			       	$.ajax({
-					type: 'POST',
-					url: '/finish_authentication',
-					data: {
-						data: res,
-						username: localStorage.getItem('username')
+		       	$.ajax({
+				type: 'POST',
+				url: '/finish_authentication',
+				data: {
+					data: res,
+					username: localStorage.getItem('username')
+				}
+				}).done(function(response) {
+					if(response){
+						// Success
+						$("#start-auth").hide();
+						$("#finish-auth").show();
 					}
-					}).done(function(response) {
-						if(response){
-							// Success
-							$("#start-auth").hide();
-							$("#finish-auth").show();
-						}
-						else {
-							// Fail
-							$("#start-auth").hide();
-							$("#auth-fail").show();
-						}
-					});
-			    });
+					else {
+						// Fail
+						$("#start-auth").hide();
+						$("#auth-fail").show();
+					}
+				});
+			});
 		}, 1000);
 
 	});
