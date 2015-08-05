@@ -98,7 +98,7 @@ app.set('view engine', 'handlebars');
 var port = process.env.PORT || 8080;        // set our port
 
 // Defining the App-ID
-var appId = "https://localhost:8080";
+var appId = process.env.APPID || "https://localhost:8080";
 
 // 1. Check if the user is logged in
 //????????
