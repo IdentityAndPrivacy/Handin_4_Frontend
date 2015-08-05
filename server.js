@@ -10,7 +10,8 @@ var app        	= express();                 // define our app using express
 var bodyParser 	= require('body-parser');
 var url 	   	= require('url');
 var u2f			= require('u2f');
-var mongoose  	= require('mongoose');
+var mongoose    = require('mongoose');
+var passwordHash = require('password-hash');
 
 // MONGO DB Setup and Seeddata
 // MongoDB
