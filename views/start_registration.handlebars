@@ -1,15 +1,23 @@
 <div style="text-align: center;">
-	<div class="container">
-	<h2>START REGISTRATION</h2>
-		
+	<div id="before-div" class="container">
+		<h2>START REGISTRATION</h2>
+		<p>Touch your key now to register!</p>
+	</div>
+	<div id="after-div" class="container">
+		<p>You have now successfully registered your device!</p>
+		<a href="/" class="btn">Tilbage</a>
+	</div>
+
 </div>
 
 <script type="text/javascript">
 	$( document ).ready(function() {
+		$('#after-div').hide();
+
 		var data = JSON.parse($('#data-div').text());
 		setTimeout(function() {
 			u2f.register([data], [], function(res) {
-				console.log(res);
+				console.log(res);				
 				$.ajax({
 					type: "POST",
 					url: '/finish_registration',
@@ -20,6 +28,8 @@
 					}).done(function(response) {
 						if(response){
 							// Success
+							$('#after-div').show();
+							$('#before-div').hide();
 						}
 						else {
 							// Fail
@@ -31,6 +41,6 @@
 		
 </script>
 
-<div id="data-div" class="hidden">{{data}}</div>
+<div id="data-div" style="display: none;">{{data}}</div>
 
 <!-- ASASDASD -->
