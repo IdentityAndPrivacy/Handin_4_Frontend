@@ -37,6 +37,11 @@
 		<img src='/images/fido.png' width=300 class="fido">
 		<img id="finger-img" src='/images/finger.png' class="finger">
 		
+		<div id="timeout" class="container">
+			<p style="font-style: italic; padding: 5px 0 0 0;">
+				Timeout! - Refresh the page to try authorication again
+			</p>
+		</div>
 	</div>
 	<div id="after-div" class="container">
 
@@ -52,10 +57,19 @@
 
 	$( document ).ready(function() {
 		$('#after-div').hide();
+		$("#timeout").hide();
 
 		var data = JSON.parse($('#data-div').text());
 		setTimeout(function() {
 			u2f.register([data], [], function(res) {
+				if(res.errorCode) {
+		        	if(res.errorCode === 5){
+		        		$("#timeout").show();
+		        		console.log("Timeout");
+		        	}
+		            console.log("U2F failed with error code: " + res.errorCode);
+		            return;
+		        }
 				console.log(res);				
 				$.ajax({
 					type: "POST",

@@ -10,11 +10,13 @@
 		var request =  JSON.parse($('#data-div').text());
 		var signRequest = setInterval(function() {
 			console.log(request);
+			// sign the [request] from the server using the YubiKey
 		    u2f.sign([request], function(res) {
-		    	console.log(res);
+		    	
 		        if(res.errorCode) {
 		        	if(res.errorCode === 5){
 		        		$("#timeout").show();
+		        		console.log("Timeout");
 		        	}
 		            console.log("U2F failed with error code: " + res.errorCode);
 		            return;
@@ -46,6 +48,7 @@
 	});
 </script>
 
+// Hack to get data from server
 <div id="data-div"class="hidden" style="display: none;">{{data}}</div>
 
 
@@ -81,17 +84,17 @@
 </style>
 
 <div style="text-align: center;">
+
 	<div id="start-auth" class="container">
 		<i class="material-icons" style="color: darkgrey; font-size: 40px; margin-bottom: 0px; margin-top:40px;">looks_one</i>
-		<p style="color: darkgrey; font-size: 25px; margin-top:0;">Please insert and hold your Yubico key for authentication...</p>
+		<p style="color: darkgrey; font-size: 25px; margin-top:0;">Please insert and touch your Yubico key for authentication...</p>
 		<br/>
 		<img src='/images/fido.png' width=300 class="fido">
 		<img id="finger-img" src='/images/finger.png' class="finger">
 	</div>
 
-
 	<div id="timeout" class="container">
-			<p style="font-style: italic;">Timeout! - Refresh the page to try authorication again</p>
+			<p style="font-style: italic; padding: 5px 0 0 0;">Timeout! - Refresh the page to try authorication again</p>
 	</div>
 
 	<div id="finish-auth" class="container">
@@ -105,5 +108,3 @@
 	</div>
 
 </div>
-
-
