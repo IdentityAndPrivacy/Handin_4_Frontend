@@ -8,11 +8,9 @@
 		$("#timeout").hide();
 
 		var request =  JSON.parse($('#data-div').text());
-		var signRequest = setInterval(function() {
+		var signRequest = setTimeout(function() {
 			// sign the [request] from the server using the YubiKey
-		    u2f.sign([request], function(res) {
-		    	
-		    	clearInterval(signRequest);
+		    u2f.sign([request], function(res){
 		        if(res.errorCode) {
 		        	if(res.errorCode === 5){
 		        		$("#timeout").show();
@@ -34,6 +32,7 @@
 						// Success
 						$("#start-auth").hide();
 						$("#finish-auth").show();
+						$('#data-output').html("Output from token: "+res);
 					}
 					else {
 						// Fail
@@ -99,6 +98,8 @@
 	<div id="finish-auth" class="container">
 		<i class="material-icons" style="color: darkgrey; font-size: 100px; margin-bottom: 0px; margin-top:40px;">check</i>
 		<h4 style="color: green;">User authenticated!</h4>
+		<div id="data-output">
+		</div>
 		<a href="/" class="btn">Go back</a>
 	</div>
 
