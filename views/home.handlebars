@@ -117,6 +117,7 @@
 	function logout() {
 		localStorage.removeItem('username');
 		localStorage.removeItem('name');
+		localStorage.removeItem('registered');
 		$('#login').show();
 		$('#u2f-div').hide();
 
