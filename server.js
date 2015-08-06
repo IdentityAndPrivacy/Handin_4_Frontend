@@ -243,9 +243,6 @@ router.get('/start_authentication', function(req, res) {
 				var req = u2f.request(appId, user.keyHandle);
 				session.authRequest = req;
 
-				console.log("Session: "+session.authRequest);
-				console.log("JSON:"+JSON.stringify(req));
-
 				res.render('start_authentication', {data: JSON.stringify(req)});
 
 			}
