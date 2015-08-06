@@ -175,7 +175,8 @@ router.get('/start_registration', function(req, res) {
   var req = u2f.request(appId);
   session.authRequest = req;
 
-  console.log(session.authRequest);
+  console.log('Session: ' + session.authRequest);
+  console.log('GET: Start: ' + JSON.stringify(req));
 
   res.render('start_registration', {data: JSON.stringify(req),
                                     jsonData: req
@@ -187,12 +188,12 @@ router.post('/finish_registration', function(req, res) {
 
   var fData = req.body.data;
   var username = req.body.username;
-  console.log(fData);
-  console.log(username);
+  console.log('POST: Received data: ' + fData);
+  console.log('User: ' +username);
 
   // 4. (Server) Check registration result.
   var checkres = u2f.checkRegistration(session.authRequest, fData);
-  console.log(checkres);
+  console.log('Result checkRegistration: ' + checkres);
 
   if (checkres.successful) {
     // Registration successful, save 
