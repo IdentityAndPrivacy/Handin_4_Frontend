@@ -261,27 +261,34 @@ router.post('/finish_authentication', function(req, res) {
   	console.log(fData);
   	console.log(username);
 
-	var query = PUser.findOne({'username': username});
-  	query.exec(function(err, user) {
-	    if (!err) {
-			console.log(user);
-			if(user !== null){
-				var checkres = u2f.checkSignature(session.authRequest, fData, user.publicKey);
+  	if(username !== null){
 
-				if (checkres.successful) {
-					// User is authenticated.
-					console.log("User authenticated")
-					res.json({message: 'User authenticated'});
-					res.end();
+		var query = PUser.findOne({'username': username});
+	  	query.exec(function(err, user) {
+		    if (!err) {
+				console.log(user);
+				if(user !== null){
+					var checkres = u2f.checkSignature(session.authRequest, fData, user.publicKey);
 
-				} else {
-					// checkres.errorMessage will contain error text.
-					res.json( {message: checkres.errorMessage} );
-					res.end();
+					if (checkres.successful) {
+						// User is authenticated.
+						console.log("User authenticated")
+						res.json({message: 'User authenticated', publicKey: user.publicKey, fData: fData});
+						res.end();
+
+					} else {
+						// checkres.errorMessage will contain error text.
+						res.json( {message: checkres.errorMessage} );
+						res.end();
+					}
 				}
 			}
-		}
-	});	
+		});	
+  	} else {
+  		console.log("User not found!")
+		res.json({message: 'User not found'});
+		res.end();
+  	}
 });
 
 
