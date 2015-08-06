@@ -177,7 +177,9 @@ router.get('/start_registration', function(req, res) {
 
   console.log(session.authRequest);
 
-  res.render('start_registration', {data: JSON.stringify(req)});
+  res.render('start_registration', {data: JSON.stringify(req),
+                                    jsonData: req
+  });
 });
 
 
