@@ -9,10 +9,10 @@
 
 		var request =  JSON.parse($('#data-div').text());
 		var signRequest = setInterval(function() {
-			console.log(request);
 			// sign the [request] from the server using the YubiKey
 		    u2f.sign([request], function(res) {
 		    	
+		    	clearInterval(signRequest);
 		        if(res.errorCode) {
 		        	if(res.errorCode === 5){
 		        		$("#timeout").show();
@@ -21,8 +21,7 @@
 		            console.log("U2F failed with error code: " + res.errorCode);
 		            return;
 		        }
-		        clearInterval(signRequest);
-
+		        
 		       	$.ajax({
 					type: 'POST',
 					url: '/finish_authentication',
@@ -48,7 +47,7 @@
 	});
 </script>
 
-// Hack to get data from server
+{{!-- Hack to get data from server --}}
 <div id="data-div"class="hidden" style="display: none;">{{data}}</div>
 
 
