@@ -33,6 +33,9 @@
 	<div id="before-div" class="container">
 		<i class="material-icons" style="color: darkgrey; font-size: 40px; margin-bottom: 0px; margin-top:40px;">looks_one</i>
 		<p style="color: darkgrey; font-size: 25px; margin-top:0;">Touch your key now to register!</p>
+		<h2>Data received from server by client</h2>
+		<p>Your received <span style="font-weight: 800;">challenge</span>: {{data.challenge}}</p>
+		<p>The <span style="font-weight: 800;">AppID</span> is: {{data.appId}}</p>
 		<br/>
 		<img src='/images/fido.png' width=300 class="fido">
 		<img id="finger-img" src='/images/finger.png' class="finger">
@@ -47,7 +50,7 @@
 
 		<i class="material-icons" style="color: darkgrey; font-size: 100px; margin-bottom: 0px; margin-top:40px;">check</i>
 
-		<p>You have now successfully registered your device!</p>
+		<p>You have now successfully registered your device!</p>		
 		<a href="/" class="btn">Go back</a>
 	</div>
 
@@ -96,5 +99,3 @@
 </script>
 
 <div id="data-div" style="display: none;">{{data}}</div>
-
-<!-- ASASDASD -->
