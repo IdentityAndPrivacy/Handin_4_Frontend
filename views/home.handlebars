@@ -2,7 +2,7 @@
 	{{!-- Login --}}
 	<div id="login" class="container">
 
-		<form action="/login" method="post">
+		<form action="/login" method="post" id="login-form">
 		<div class="row">
 			<div class="col s6 offset-s3 center-align">
 				<h5>Secure Remote Password Emulator</h5>
@@ -20,6 +20,20 @@
 				<label for="password">Password</label>
 			</div>
 		</div>
+
+		<div class="row"> 
+
+			  <div class="input-field col s6 offset-s3">
+    			   <select name="bit" class="browser-default" form="login-form">
+				      <option value="1" disabled selected>Please select bit-group</option>
+				      <option value="1024">1024-bit</option>
+				      <option value="2048">2048-bit</option>
+				      <option value="8192">8192-bit</option>
+				    </select>
+  			</div>
+				
+		</div>
+
 		<div class="row">
 			<div class="input-field col s6 offset-s3">
 				<button id="login-btn" class="btn" style="width: 100%;" type='submit'>Login</button>
@@ -30,3 +44,4 @@
 	</div>
 
 </div>
+

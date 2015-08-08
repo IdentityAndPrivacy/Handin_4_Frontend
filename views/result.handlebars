@@ -12,10 +12,6 @@ p{margin: 3px 0px;}
 		<p>s = random salt value</p>
 		<p style="margin-bottom: 10px;">$v=g^{H(s,p)}$</p>
 
-		<p>Bit-group = 2048 bit</p>  
-
-
-
 		<!-- PUBLIC VALUES -->
 		<div style="background-color: #ECECEC; border-radius: 5px; padding: 5px 15px; margin: 30px 0px;">
 			<div class="row" style="padding-bottom: -20px;">
@@ -28,11 +24,13 @@ p{margin: 3px 0px;}
 				<div class="col s4">
 					<p style="font-weight: 600; margin: 5px 0px;">Username</p>
 					<p style="font-weight: 600; margin: 5px 0px;">Password (p)</p>
+					<p style="font-weight: 600; margin: 5px 0px;">Bit-group</p>
 				</div>
 
 				<div class="col s8 right-align">
 					<p style="margin: 5px 0px;">${{response.server.currentUser.username}}$</p>
 					<p style="margin: 5px 0px;">${{response.client.p}}$</p>
+					<p style="margin: 5px 0px;">${{response.publicData.bit}} bit$</p>
 				</div>
 			</div>
 

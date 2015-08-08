@@ -36,8 +36,10 @@ router.get('/', function(req, res) {
 router.post('/login', function(req,res){
   var username = req.body.username;
   var password = req.body.password;
+  var bit = req.body.bit;
+  console.log(bit);
 
-  var reqUrl = "https://pi-host-server.herokuapp.com/session?up="+username+';'+password;
+  var reqUrl = "https://pi-host-server.herokuapp.com/session?up="+username+';'+password+';'+bit;
   console.log(reqUrl);
   
   https.get(reqUrl, function(response) {
