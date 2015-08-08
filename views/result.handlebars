@@ -7,7 +7,10 @@ p{margin: 3px 0px;}
 
 		<p>The following flow is based on the SRP-6a.</p>
 		<p>The algorithm used for the Hash-function is SHA-256.</p>
-		<p>This example is based on users already being registered at the server.</p>
+		<p>This example is based on users already being registered at the server. Users are represented in the database with the following attributes:</p>
+		<p>I = ASCII representation of username</p>
+		<p>s = random salt value</p>
+		<p>$v=g^{H(s,p)}$  
 
 
 
@@ -339,6 +342,10 @@ p{margin: 3px 0px;}
 					<p></p>
 				</div>
 			</div>
+		</div>
+
+		<div class="row center-align">
+			<p style="font-style: italic; font-size: 12px;">DISCLAIMER: The used math-representation library is having trouble displaying scintific style formatting from the server. The represented value $e+76$ corresponds to $e^{76}$</p>
 		</div>
 
 
