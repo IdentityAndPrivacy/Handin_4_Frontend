@@ -5,10 +5,31 @@ p{margin: 3px 0px;}
 	<div id="result" class="container">
 		<h5>Result</h5>
 
+		<p>The following flow is based on the SRP-6a.</p>
+		<p>The algorithm used for the Hash-function is SHA-256</p>
+
 
 
 		<!-- PUBLIC VALUES -->
 		<div style="background-color: #ECECEC; border-radius: 5px; padding: 5px 15px; margin: 30px 0px;">
+			<div class="row" style="padding-bottom: -20px;">
+				<div class="col s12">
+					<p style="font-weight: 800; font-size: 18px;">User input</p>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top: -20px;">
+				<div class="col s4">
+					<p style="font-weight: 600; margin: 5px 0px;">Username</p>
+					<p style="font-weight: 600; margin: 5px 0px;">Password (p)</p>
+				</div>
+
+				<div class="col s8 right-align">
+					<p style="margin: 5px 0px;">${{response.server.currentUser.username}}$</p>
+					<p style="margin: 5px 0px;">${{response.client.p}}$</p>
+				</div>
+			</div>
+
 			<div class="row" style="padding-bottom: -20px;">
 				<div class="col s12">
 					<p style="font-weight: 800; font-size: 18px;">Public values</p>
@@ -175,7 +196,9 @@ p{margin: 3px 0px;}
 				<div class="left-align">
 					<p style="font-style: italic;">$u=H(A,B)$<p>
 					<p style="font-style: italic;">$u = {{response.client.u}}$<p>
-					<p style="font-style: italic;">$S=(B-kq^x)^a+ux$<p>
+					<p style="font-style: italic;">$x=H(s,p)$<p>
+					<p style="font-style: italic;">$x = {{response.client.x}}$<p>
+					<p style="font-style: italic;">$S=(B-kq^x)^{a+ux}$<p>
 					<p style="font-style: italic;">$S = {{response.client.bigS}}$<p>
 					<p style="font-style: italic;">$K=H(S)$<p>
 					<p style="font-style: italic;">$K = {{response.client.bigK}}$<p>
