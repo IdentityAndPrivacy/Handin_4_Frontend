@@ -9,6 +9,7 @@ var exphbs 		= require('express-handlebars'); ;       // call express
 var app        	= express();                 // define our app using express
 var bodyParser 	= require('body-parser');
 var url 	   	= require('url');
+var https     = require('https');
 
 app.use('/images', express.static(__dirname + "/images"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,6 +31,29 @@ var router = express.Router();              // get an instance of the express Ro
 
 router.get('/', function(req, res) {
 	res.render('home');
+});
+
+router.post('/login', function(req,res){
+  var username = req.body.username;
+  var password = req.body.password;
+
+  var reqUrl = "https://pi-host-server.herokuapp.com/session?up="+username+';'+password;
+  console.log(reqUrl);
+  
+  https.get(reqUrl, function(response) {
+    console.log("Got response: " + response.statusCode);
+    if(response.statusCode === 200){
+      var data = '';
+      response.on('data', function(result){
+          data += result;
+      });
+      response.on('end',function() {
+        res.render('result', {response: JSON.parse(data)});
+      });
+      
+    }
+  });
+   
 });
 
 app.use('', router);

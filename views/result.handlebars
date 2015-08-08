@@ -1,0 +1,324 @@
+<style>
+p{margin: 3px 0px;}
+</style>	
+
+	<div id="result" class="container">
+		<h5>Result</h5>
+
+
+
+		<!-- PUBLIC VALUES -->
+		<div style="background-color: #ECECEC; border-radius: 5px; padding: 5px 15px; margin: 30px 0px;">
+			<div class="row" style="padding-bottom: -20px;">
+				<div class="col s12">
+					<p style="font-weight: 800; font-size: 18px;">Public values</p>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top: -20px;">
+				<div class="col s4">
+					<p style="font-weight: 600; margin: 5px 0px;">$N$</p>
+					<p style="font-weight: 600; margin: 5px 0px;">$g$</p>
+					<p style="font-weight: 600; margin: 5px 0px;">$k$</p>
+				</div>
+
+				<div class="col s8 right-align">
+					<p id="N-value" style="margin: 5px 0px;">${{response.publicData.N}}$</p>
+					<p id="g-value" style="margin: 5px 0px;">${{response.publicData.g}}$</p>
+					<p id="k-value" style="margin: 5px 0px;">${{response.publicData.k}}$</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- FLOW -->
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-size: 18px; font-weight: 600;">Client<p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-style: italic;">Communication</p>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-size: 18px; font-weight: 600;">Server<p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+
+					<p style="font-style: italic;">$a: random \, value$</span><p>
+					<p style="font-style: italic;">$a = $<span id="a-value"> ${{response.client.smallA}}$</span><p>
+
+					<p style="font-style: italic;">$A=g^a$</span><p>
+					<p style="font-style: italic;">$A =$<span id="A-value"> ${{response.client.A}}$</span><p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-style: italic;"></p>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="right-align">
+					<p style="font-size: 18px; font-weight: 600;"><p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p><p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-style: italic;">$I={{response.client.bigI}}$,$A={{response.client.A}}$</p>
+					<img style="height: 10px; width: 100%;" src="/images/arrow.png"/>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="right-align">
+					<p><p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p><p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p></p>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="left-align">
+					<p style="font-family: Courier New; font-weight: 800;">{I,s,v} = lookUp(I) <p>
+					<p style="font-style: italic; font-family: Courier New;">{ {{response.server.currentUser.bigI}}, {{response.server.currentUser.s}}, {{response.server.currentUser.v}} }<p>
+					<p style="font-style: italic;">$b: random \, value$<p>
+					<p style="font-style: italic;">$b = {{response.server.smallB}}$<p>
+					<p style="font-style: italic;">$B=k \cdot v+g^b$<p>
+					<p style="font-style: italic;">$B = {{response.server.B}}$<p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p><p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-style: italic;">$s={{response.server.currentUser.s}},B={{response.server.B}}$</p>
+					<img style="height: 10px; width: 100%;" src="/images/arrow_inv.png"/>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="right-align">
+					<p><p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p style="font-style: italic;">$u=H(A,B)$<p>
+					<p style="font-style: italic;">$u = {{response.client.u}}$<p>
+					<p style="font-style: italic;">$S=(B-kq^x)^a+ux$<p>
+					<p style="font-style: italic;">$S = {{response.client.bigS}}$<p>
+					<p style="font-style: italic;">$K=H(S)$<p>
+					<p style="font-style: italic;">$K = {{response.client.bigK}}$<p>
+					<p style="font-style: italic;">$M1=H(H(N)xorH(g),H(I),s,A,B,K)$<p>
+					<p style="font-style: italic;">$M1 = {{response.client.m1}}$<p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p></p>
+					
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="left-align">
+					<p style="font-style: italic;">$u=H(A,B)$<p>
+					<p style="font-style: italic;">$u = {{response.server.u}}$<p>
+					<p style="font-style: italic;">$S=(Av^u)^b$<p>
+					<p style="font-style: italic;">$S = {{response.server.bigS}}$<p>
+					<p style="font-style: italic;">$K=H(S)$<p>
+					<p style="font-style: italic;">$K = {{response.server.bigK}}$<p>
+					<p style="font-style: italic;">$M1=H(H(N)xorH(g),H(I),s,A,B,K)$<p>
+					<p style="font-style: italic;">$M1 = {{response.server.m1}}$<p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p><p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-style: italic;">$M1={{response.client.m1}},$ $A={{response.client.A}}$</p>
+					<img style="height: 10px; width: 100%;" src="/images/arrow.png"/>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="right-align">
+					<p><p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p></p>
+					<p></p>
+					<p style="font-style: italic;">$M2=H(A,M1,K)$</p>
+					<p>$M2={{response.client.M2}}$</p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p></p>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="left-align">
+					<p style="font-family: Courier New; font-weight: 800;">Verify(M1,M1)</p>
+					<p style="font-family: Courier New; font-weight: 800;"> M1=M1 </p>
+					<p style="font-style: italic;">$M2=H(A,M1,K)$</p>
+					<p>$M2={{response.server.M2}}$</p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p><p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-style: italic;">$M2={{response.server.M2}}$</p>
+					<img style="height: 10px; width: 100%;" src="/images/arrow_inv.png"/>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="right-align">
+					<p><p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p style="font-family: Courier New; font-weight: 800;">Verify(M2,M2)</p>
+					<p style="font-family: Courier New; font-weight: 800;"> M2=M2 </p>
+					<p style="font-family: Courier New; font-weight: 800;">SUCCESS!</p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p></p>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="left-align">
+					<p></p>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+	</div>
