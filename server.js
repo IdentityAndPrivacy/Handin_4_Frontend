@@ -48,7 +48,14 @@ router.post('/login', function(req,res){
           data += result;
       });
       response.on('end',function() {
-        res.render('result', {response: JSON.parse(data)});
+        var result = JSON.parse(data);
+        console.log(result.publicData.abort);
+        if(result.publicData.abort !== '') {
+          res.render('error', {message: result.publicData.abort});
+        }
+        else {
+          res.render('result', {response: result});
+        }
       });
       
     }
