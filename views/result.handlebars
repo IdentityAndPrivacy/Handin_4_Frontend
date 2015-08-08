@@ -179,7 +179,7 @@ p{margin: 3px 0px;}
 					<p style="font-style: italic;">$S = {{response.client.bigS}}$<p>
 					<p style="font-style: italic;">$K=H(S)$<p>
 					<p style="font-style: italic;">$K = {{response.client.bigK}}$<p>
-					<p style="font-style: italic;">$M1=H(H(N)xorH(g),H(I),s,A,B,K)$<p>
+					<p style="font-style: italic;">$M1=H(H(N) \oplus H(g),H(I),s,A,B,K)$<p>
 					<p style="font-style: italic;">$M1 = {{response.client.m1}}$<p>
 				</div>
 			</div>
@@ -201,7 +201,7 @@ p{margin: 3px 0px;}
 					<p style="font-style: italic;">$S = {{response.server.bigS}}$<p>
 					<p style="font-style: italic;">$K=H(S)$<p>
 					<p style="font-style: italic;">$K = {{response.server.bigK}}$<p>
-					<p style="font-style: italic;">$M1=H(H(N)xorH(g),H(I),s,A,B,K)$<p>
+					<p style="font-style: italic;">$M1=H(H(N) \oplus H(g),H(I),s,A,B,K)$<p>
 					<p style="font-style: italic;">$M1 = {{response.server.m1}}$<p>
 				</div>
 			</div>
