@@ -20,16 +20,91 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s6 offset-s3">
-				<button id="login-btn" class="btn" style="width: 100%;">Login</button>
+				<button id="login-btn" class="btn" style="width: 100%;" onClick="login();">Login</button>
 			</div>
 		</div>
 	</div>
 
 	<div id="result" class="container">
-		
-		<div class="row">
-			
+		<h5>Result</h5>
+
+		<!-- PUBLIC VALUES -->
+		<div style="background-color: #ECECEC; border-radius: 5px; padding: 5px 15px; margin: 30px 0px;">
+			<div class="row" style="padding-bottom: -20px;">
+				<div class="col s12">
+					<p style="font-weight: 800; font-size: 18px;">Public values</p>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top: -20px;">
+				<div class="col s4">
+					<p style="font-weight: 600; margin: 5px 0px;">N</p>
+					<p style="font-weight: 600; margin: 5px 0px;">g</p>
+					<p style="font-weight: 600; margin: 5px 0px;">k</p>
+				</div>
+
+				<div class="col s8 right-align">
+					<p id="N-value" style="margin: 5px 0px;">N-value</p>
+					<p id="g-value" style="margin: 5px 0px;">g-value</p>
+					<p id="k-value" style="margin: 5px 0px;">k-value</p>
+				</div>
+			</div>
 		</div>
+
+		<!-- FLOW -->
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p style="font-size: 18px; font-weight: 600;">Client<p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-style: italic;">Communication</p>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="right-align">
+					<p style="font-size: 18px; font-weight: 600;">Server<p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<!-- CLIENT -->
+			<div class="col s4">
+				<div class="left-align">
+					<p>a = <span id="a-value">a-value</span><p>
+				</div>
+			</div>
+
+			<!-- COMMUNICATION -->
+			<div class="col s4">
+				<div class="center-align">
+					<p style="font-style: italic;"></p>
+				</div>
+			</div>
+
+			<!-- SERVER -->
+			<div class="col s4">
+				<div class="right-align">
+					<p style="font-size: 18px; font-weight: 600;"><p>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</div>
 
 
 
@@ -52,15 +127,19 @@
 	   
 	});
 
+	function handleResult(data){
+		debugger;
+
+	}
+
 	// Logging in
 	function login(){
+		
 		var up = $('#username').val()+';'+$('#password').val();
 	  $.ajax({
 	    type: 'get',
-	    url: '/session?up=up',
+	    url: 'http://pi-host-server.herokuapp.com/session?up='+up,
 	  })
-	  .done(function(data){
-	  	
-	  });
+	  .done(handleResult(data));
 	};	
 </script>
