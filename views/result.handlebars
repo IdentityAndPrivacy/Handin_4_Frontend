@@ -91,7 +91,7 @@ p{margin: 3px 0px;}
 					<p style="font-style: italic;">$a: random \, value$</span><p>
 					<p style="font-style: italic;">$a = $<span id="a-value"> ${{response.client.smallA}}$</span><p>
 
-					<p style="font-style: italic;">$A=g^a$</span><p>
+					<p style="font-style: italic;">$A=g^a mod N$</span><p>
 					<p style="font-style: italic;">$A =$<span id="A-value"> ${{response.client.A}}$</span><p>
 				</div>
 			</div>
@@ -161,7 +161,7 @@ p{margin: 3px 0px;}
 					<p style="font-style: italic; font-family: Courier New;">{ {{response.server.currentUser.bigI}}, {{response.server.currentUser.s}}, {{response.server.currentUser.v}} }<p>
 					<p style="font-style: italic;">$b: random \, value$<p>
 					<p style="font-style: italic;">$b = {{response.server.smallB}}$<p>
-					<p style="font-style: italic;">$B=k \cdot v+g^b$<p>
+					<p style="font-style: italic;">$B=k \cdot v+g^b mod N$<p>
 					<p style="font-style: italic;">$B = {{response.server.B}}$<p>
 				</div>
 			</div>
@@ -202,7 +202,7 @@ p{margin: 3px 0px;}
 					<p style="font-style: italic;">$u = {{response.client.u}}$<p>
 					<p style="font-style: italic;">$x=H(s,p)$<p>
 					<p style="font-style: italic;">$x = {{response.client.x}}$<p>
-					<p style="font-style: italic;">$S=(B-kq^x)^{a+ux}$<p>
+					<p style="font-style: italic;">$S=(B-kq^x)^{a+ux} mod N$<p>
 					<p style="font-style: italic;">$S = {{response.client.bigS}}$<p>
 					<p style="font-style: italic;">$K=H(S)$<p>
 					<p style="font-style: italic;">$K = {{response.client.bigK}}$<p>
@@ -224,7 +224,7 @@ p{margin: 3px 0px;}
 				<div class="left-align">
 					<p style="font-style: italic;">$u=H(A,B)$<p>
 					<p style="font-style: italic;">$u = {{response.server.u}}$<p>
-					<p style="font-style: italic;">$S=(Av^u)^b$<p>
+					<p style="font-style: italic;">$S=(Av^u)^b mod N$<p>
 					<p style="font-style: italic;">$S = {{response.server.bigS}}$<p>
 					<p style="font-style: italic;">$K=H(S)$<p>
 					<p style="font-style: italic;">$K = {{response.server.bigK}}$<p>
